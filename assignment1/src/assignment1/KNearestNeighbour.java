@@ -84,8 +84,16 @@ public class KNearestNeighbour extends Classifier {
 	}
 	
 	private int majorityVote(Map<Integer, Integer> labelCountsMap) {
-		// get max count of label
-		int highestCount = Collections.max(labelCountsMap.values());
+		int highestCount = 0;
+		
+		// loop through Map
+		for(Integer key : labelCountsMap.keySet()) {
+			// get highest value and set count to the key
+			if (labelCountsMap.get(key) > highestCount) {
+				highestCount = key;
+			}
+		}
+
 		return highestCount;
 	}
 }
