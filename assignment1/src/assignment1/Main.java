@@ -26,29 +26,26 @@ public class Main {
 		unknownData = fileManager.readFile(unknownDataPath);
 		
 		// run nn on unknown data
-		for (int i = 0; i < unknownData.size(); i++) {
-			NearestNeighbour nn = new NearestNeighbour();
-			int orientation = nn.calculateOrientation(unknownData.get(i), trainingData);
-			
-			// set label to calculated orientation
-			unknownData.get(i).setLabel(orientation);
-		}
-		
-		fileManager.writeFile(unknownData);
+//		for (int i = 0; i < unknownData.size(); i++) {
+//			NearestNeighbour nn = new NearestNeighbour();
+//			int orientation = nn.calculateOrientation(unknownData.get(i), trainingData);
+//			
+//			// set label to calculated orientation
+//			unknownData.get(i).setLabel(orientation);
+//		}
+//		
+//		fileManager.writeFile(unknownData);
 		
 		// knn
-		// run on testing data
-		for (int i = 0; i < testingData.size(); i++) {
+		// run on unknown data
+		for (int i = 0; i < unknownData.size(); i++) {
 //			System.out.println("before");
 //			testingData.get(i).print();
 			KNearestNeighbour knn = new KNearestNeighbour(3);
-			int orientation = knn.calculateOrientation(testingData.get(i), trainingData);
+			int orientation = knn.calculateOrientation(unknownData.get(i), trainingData);
 			
 			// set label to calculated orientation
 			testingData.get(i).setLabel(orientation);
-//			
-//			System.out.println("after:");
-//			testingData.get(i).print();
 		}
 		
 		fileManager.writeFile(unknownData);
