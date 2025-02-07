@@ -26,11 +26,7 @@ public class KNearestNeighbour extends Classifier {
 			return orientation;
 		}
 		
-		// list of k data
-//		ArrayList<Data, Double> testArrayList;
-		// dictionary of datapoint and distance
-//		Map<Data, Double> dataDistance = new HashMap<>();
-		
+		// array of data and its distance 
 		ArrayList<DataDistance> dataDistancePair = new ArrayList<DataDistance>();
 		
 		// loop through array list of training data
@@ -38,23 +34,12 @@ public class KNearestNeighbour extends Classifier {
 			// calculate distance between datapoint and each training data
 			Double distance = euclideanDistance(datapoint, trainingData.get(i));
 			
-			// add data and distance pair to new array list
-			dataDistancePair.add(new DataDistance(datapoint, distance));
+			// add data of training data and distance to new array list
+			dataDistancePair.add(new DataDistance(trainingData.get(i), distance));
 		}
-		
-//		for (int i = 0; i < dataDistancePair.size(); i++) {
-//			dataDistancePair.get(i).data.print();
-//			System.out.println(dataDistancePair.get(i).distance);
-//		}
 		
 		// sort data pair by distance ascending
 		Collections.sort(dataDistancePair, Comparator.comparingDouble(d -> d.distance));
-		
-		
-//		for (int i = 0; i < dataDistancePair.size(); i++) {
-//			dataDistancePair.get(i).data.print();
-//			System.out.println(dataDistancePair.get(i).distance);
-//		}
 		
 		// dictionary of label and counts
 		Map<Integer, Integer> labelCountsMap = new HashMap<Integer, Integer>();
@@ -63,10 +48,12 @@ public class KNearestNeighbour extends Classifier {
 		for(int i = 0; i < Math.min(k, dataDistancePair.size()); i++) {
 			// get label
 			int label = dataDistancePair.get(i).data.label;
+
 			// add to Map, get value or set to 0 and add 1
 			labelCountsMap.put(label, labelCountsMap.getOrDefault(label, 0) + 1);
 		}
 		
+		// get orientation by majority vote
 		orientation = majorityVote(labelCountsMap);
 		
 		return orientation;
@@ -83,6 +70,7 @@ public class KNearestNeighbour extends Classifier {
 		}
 	}
 	
+	// majority vote function for knn
 	private int majorityVote(Map<Integer, Integer> labelCountsMap) {
 		int highestCount = 0;
 		

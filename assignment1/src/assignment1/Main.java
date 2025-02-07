@@ -55,11 +55,8 @@ public class Main {
                 }
             }
             case 3 -> {
-                AnotherClassifier anotherClassifier = new AnotherClassifier();
-                for (Data data : selectedData) {
-                    int orientation = anotherClassifier.calculateOrientation(data, trainingData);
-                    data.setLabel(orientation);
-                }
+//                AnotherClassifier anotherClassifier = new AnotherClassifier();
+//                anotherClassifier.calculateOrientation();
             }
             case 4 -> {
                 System.out.println("Exiting...");
