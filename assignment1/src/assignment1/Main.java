@@ -42,21 +42,31 @@ public class Main {
         switch (menu.getClassifierSelect()) {
             case 1 -> {
                 NearestNeighbour nn = new NearestNeighbour();
+                // loop through selected data
                 for (Data data : selectedData) {
+                	// calculate orientation from training data
                     int orientation = nn.calculateOrientation(data, trainingData);
+                    // set label orientation
                     data.setLabel(orientation);
                 }
             }
             case 2 -> {
+            	// set knn to 3
                 KNearestNeighbour knn = new KNearestNeighbour(3);
+                // loop through selected data
                 for (Data data : selectedData) {
+                	// calculate orientation from training data
                     int orientation = knn.calculateOrientation(data, trainingData);
+                    // set label orientation
                     data.setLabel(orientation);
                 }
             }
             case 3 -> {
-//                AnotherClassifier anotherClassifier = new AnotherClassifier();
-//                anotherClassifier.calculateOrientation();
+                AnotherClassifier anotherClassifier = new AnotherClassifier();
+                // create sample data
+                Data data = selectedData.get(0);
+                // call another classifier function
+                anotherClassifier.calculateOrientation(data, trainingData);
             }
             case 4 -> {
                 System.out.println("Exiting...");
